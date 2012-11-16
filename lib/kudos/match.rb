@@ -16,7 +16,13 @@ module Kudos
     end
 
     def notify!
-      Notify.new(origin).send!
+      begin
+        Notify.new(origin).send!
+      rescue Twitter::Error::Forbidden
+        # ignore forbidden tweets
+      rescue Twitter::Error::TooManyRequests
+        abort "Twitter API rate limit exceeded"
+      end
     end
 
   end
