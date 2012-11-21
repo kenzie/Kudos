@@ -1,22 +1,22 @@
 # Kudos!
 
-Use Twitter's Streaming API to catch all 'congrats' messages (initial test with the Public Stream). Send notification of any matches with a link to the original tweet.
+Use Twitter's Streaming API to catch all 'congrats' messages for authorized Twitter users. Send notification of any matches with a link to the original tweet.
 
-## Config
+## Sinatra
 
-Copy config/twitter-sample.yml to config/twitter.yml and add your Twitter App credentials.
+A simple Sinatra app has been setup to handle Twitter oAuth to start tracking users.
 
-## StreamMonitor
+## User Stream
 
-Just a wrapper around the TweetStream gem to track the public stream for kudos keywords and handle any matches.
+We're currently limited to Twitter's User Stream, so we'll only be tracking one user at a time as a proof of concept.
 
-## Match
+## Matches
 
-Trace a tweet to it's origin.
+New matches will be picked from the stream.
 
-## Notify
+## Notification
 
-Send a message with a link to the tweet.
+Any match will be notified on as an email or direct message to the watching user.
 
 ## Reference Docs
 
