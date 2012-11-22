@@ -3,7 +3,7 @@
 configure do
   set :haml, { :format => :html5 }
   TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
-  use Rack::Session::Pool, :expire_after => 2592000
+  use Rack::Session::Pool, :expire_after => 31536000
 end
 
 configure(:development) do |c|
@@ -51,31 +51,31 @@ def redirect_uri
 end
 
 class User
-    attr_reader :screen_name, :oauth_token, :oauth_token_secret
-    def initialize screen_name, oauth_token, oauth_token_secret
-        @screen_name, @oauth_token, @oauth_token_secret = screen_name, oauth_token, oauth_token_secret
+  attr_reader :screen_name, :oauth_token, :oauth_token_secret
+  def initialize screen_name, oauth_token, oauth_token_secret
+    @screen_name, @oauth_token, @oauth_token_secret = screen_name, oauth_token, oauth_token_secret
+  end
+  def self.create screen_name, oauth_token, oauth_token_secret
+    user = self.new screen_name, oauth_token, oauth_token_secret
+    user.save
+    user
+  end
+  def self.find screen_name
+    if redis.sismember "users", "#{screen_name}"
+      oauth_token = redis.get "#{screen_name}:token"
+      oauth_token_secret = redis.get "#{screen_name}:secret"
+      self.new screen_name, oauth_token, oauth_token_secret
+    else
+      false
     end
-    def self.create screen_name, oauth_token, oauth_token_secret
-        user = self.new screen_name, oauth_token, oauth_token_secret
-        user.save
-        user
-    end
-    def self.find screen_name
-        if redis.sismember "users", "#{screen_name}"
-            oauth_token = redis.get "#{screen_name}:token"
-            oauth_token_secret = redis.get "#{screen_name}:secret"
-            self.new screen_name, oauth_token, oauth_token_secret
-        else
-            false
-        end
-    end
-    def save
-        redis.sadd "users", "#{@screen_name}"
-        redis.set "#{@screen_name}:token", "#{@oauth_token}"
-        redis.set "#{@screen_name}:secret", "#{@oauth_token_secret}"
-        true
-    end
-    def to_s
-        "#User > screen_name: #{screen_name}, oauth_token: #{oauth_token}, oauth_token_secret: #{oauth_token_secret}"
-    end
+  end
+  def save
+    redis.sadd "users", "#{@screen_name}"
+    redis.set "#{@screen_name}:token", "#{@oauth_token}"
+    redis.set "#{@screen_name}:secret", "#{@oauth_token_secret}"
+    true
+  end
+  def to_s
+    "#User > screen_name: #{screen_name}, oauth_token: #{oauth_token}, oauth_token_secret: #{oauth_token_secret}"
+  end
 end
