@@ -9,6 +9,7 @@ end
 configure(:development) do |c|
   require 'sinatra/reloader'
   also_reload './lib/*.rb'
+  set :redis , 'redis://127.0.0.1:6379/5'
 end
 
 get '/' do
@@ -28,7 +29,14 @@ get '/auth/twitter/callback' do
   screen_name = access_token.params[:screen_name]
   oauth_token = access_token.params[:oauth_token]
   oauth_token_secret = access_token.params[:oauth_token_secret]
-  "Screen Name: #{screen_name} <br/> Access Token: #{oauth_token} <br/> Access Token Secret: #{oauth_token_secret}"
+  user = User.create(screen_name, oauth_token, oauth_token_secret)
+  session[:screen_name] = screen_name
+  redirect '/success'
+end
+
+get '/success' do
+  @user = User.find(session[:screen_name])
+  haml :success
 end
 
 def client
@@ -40,4 +48,34 @@ def redirect_uri
   uri.path = '/auth/twitter/callback'
   uri.query = nil
   uri.to_s
+end
+
+class User
+    attr_reader :screen_name, :oauth_token, :oauth_token_secret
+    def initialize screen_name, oauth_token, oauth_token_secret
+        @screen_name, @oauth_token, @oauth_token_secret = screen_name, oauth_token, oauth_token_secret
+    end
+    def self.create screen_name, oauth_token, oauth_token_secret
+        user = self.new screen_name, oauth_token, oauth_token_secret
+        user.save
+        user
+    end
+    def self.find screen_name
+        if redis.sismember "users", "#{screen_name}"
+            oauth_token = redis.get "#{screen_name}:token"
+            oauth_token_secret = redis.get "#{screen_name}:secret"
+            self.new screen_name, oauth_token, oauth_token_secret
+        else
+            false
+        end
+    end
+    def save
+        redis.sadd "users", "#{@screen_name}"
+        redis.set "#{@screen_name}:token", "#{@oauth_token}"
+        redis.set "#{@screen_name}:secret", "#{@oauth_token_secret}"
+        true
+    end
+    def to_s
+        "#User > screen_name: #{screen_name}, oauth_token: #{oauth_token}, oauth_token_secret: #{oauth_token_secret}"
+    end
 end
