@@ -6,6 +6,7 @@ configure do
 end
 
 configure(:production) do |c|
+  TWITTER = []
   TWITTER['consumer_key'] = ENV['TWITTER_KEY']
   TWITTER['consumer_secret'] = ENV['TWITTER_SECRET']
 end
