@@ -8,8 +8,8 @@ gem 'haml'
 gem 'tweetstream'
 gem 'oauth'
 gem 'json'
+gem 'thin'
 
 group :development, :test do
   gem 'sinatra-reloader'
-  gem 'thin'
 end
