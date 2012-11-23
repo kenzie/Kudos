@@ -9,13 +9,14 @@ configure(:production) do |c|
   TWITTER = {}
   TWITTER['consumer_key'] = ENV['TWITTER_KEY']
   TWITTER['consumer_secret'] = ENV['TWITTER_SECRET']
+  set :redis, ENV["REDISTOGO_URL"]
 end
 
 configure(:development) do |c|
   TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
   require 'sinatra/reloader'
   also_reload './lib/*.rb'
-  set :redis , 'redis://127.0.0.1:6379/5'
+  set :redis, 'redis://127.0.0.1:6379/5'
 end
 
 get '/' do
