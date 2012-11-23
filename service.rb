@@ -2,11 +2,16 @@
 
 configure do
   set :haml, { :format => :html5 }
-  TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
   use Rack::Session::Cookie, :expire_after => 31536000, :secret => 'Kudo Monger'
 end
 
+configure(:production) do |c|
+  TWITTER['consumer_key'] = ENV['TWITTER_KEY']
+  TWITTER['consumer_secret'] = ENV['TWITTER_SECRET']
+end
+
 configure(:development) do |c|
+  TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
   require 'sinatra/reloader'
   also_reload './lib/*.rb'
   set :redis , 'redis://127.0.0.1:6379/5'
