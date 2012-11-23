@@ -3,3 +3,4 @@
 config/twitter.yml
 vendor/bundle
 *.swp
+tmp/*

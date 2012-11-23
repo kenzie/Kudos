@@ -3,7 +3,7 @@
 configure do
   set :haml, { :format => :html5 }
   TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
-  use Rack::Session::Pool, :expire_after => 31536000
+  use Rack::Session::Cookie, :expire_after => 31536000, :secret => 'Kudo Monger'
 end
 
 configure(:development) do |c|
