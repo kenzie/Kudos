@@ -1,1 +1,8 @@
-= @user.inspect
+%p
+  You're all set, 
+  = @user.screen_name
+%p
+  We'll send your notifications to
+  %strong
+    = @user.email
+  when your followers are congratulated.
