@@ -16,7 +16,7 @@ New matches will be picked from the stream.
 
 ## Notification
 
-Any match will be notified on as an email or direct message to the watching user.
+Any match will be notified on as an email to the signed up user.
 
 ## Reference Docs
 

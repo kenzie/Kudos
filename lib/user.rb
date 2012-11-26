@@ -6,7 +6,7 @@ class User < Ohm::Model
   attribute :email
 
   index :screen_name
-  unique :email
+  unique :screen_name
 
   def self.find_by_screen_name(screen_name)
     find(:screen_name => screen_name).first
