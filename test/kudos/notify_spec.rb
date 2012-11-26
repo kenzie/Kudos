@@ -13,6 +13,6 @@ describe Kudos::Notify do
 
   it 'should compose a notification message' do
     @notify.message.must_match /Kudos Match/
-  end 
+  end
 
 end

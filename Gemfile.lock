@@ -37,6 +37,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rake (10.0.2)
     redis (3.0.2)
     scrivener (0.0.3)
     simple_oauth (0.1.9)
@@ -77,6 +78,7 @@ DEPENDENCIES
   json
   oauth
   ohm
+  rake
   sinatra
   sinatra-reloader
   thin

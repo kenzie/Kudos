@@ -9,6 +9,7 @@ gem 'tweetstream'
 gem 'oauth'
 gem 'json'
 gem 'thin'
+gem 'rake'
 
 group :development, :test do
   gem 'sinatra-reloader'
