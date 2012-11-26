@@ -39,12 +39,8 @@ get '/auth/twitter/callback' do
   oauth_token_secret = access_token.params[:oauth_token_secret]
   session[:screen_name] = screen_name
   user = User.find_by_screen_name(screen_name)
-  if user.nil?
-    user = User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
-    redirect '/email'
-  else
-    redirect '/success'
-  end
+  user = User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret) if user.nil?
+  redirect '/email'
 end
 
 get '/email' do
