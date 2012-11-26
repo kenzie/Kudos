@@ -4,19 +4,23 @@ Use Twitter's Streaming API to catch all 'congrats' messages for authorized Twit
 
 ## Sinatra
 
-A simple Sinatra app has been setup to handle Twitter oAuth to start tracking users.
+A simple Sinatra app has been setup to handle Twitter oAuth to start tracking users and capturing their email addresses for notification.
 
 ## User Stream
 
 We're currently limited to Twitter's User Stream, so we'll only be tracking one user at a time as a proof of concept.
 
-## Matches
+## Filter
 
-New matches will be picked from the stream.
+The stream will be put through the Filter class to find matching kudo replies.
+
+## Trace
+
+Matches are traced to their originating tweet with the Trace class.
 
 ## Notification
 
-Any match will be notified on as an email to the signed up user.
+Origins will be notified on as an email to the signed up user.
 
 ## Reference Docs
 

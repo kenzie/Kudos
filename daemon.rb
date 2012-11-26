@@ -15,5 +15,6 @@ end
 client = TweetStream::Daemon.new('kudos').on_error { |message| puts "TWITTER ERROR: #{message}" }
 
 client.userstream do |status|
-  Kudos::Notify.new(status).process if Kudos::Filter.new(status).match?
+  # TODO this is ugly:
+  Kudos::Notify.new(Kudos::Trace.new(status).origin) if Kudos::Filter.new(status).match?
 end
