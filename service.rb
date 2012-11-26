@@ -32,8 +32,7 @@ get '/auth/twitter' do
 end
 
 get '/auth/twitter/callback' do
-  # TODO handle denied authorization
-  # TODO handle duplicate authorization
+  redirect '/' if params[:denied]
   access_token = session[:request_token].get_access_token
   screen_name = access_token.params[:screen_name]
   oauth_token = access_token.params[:oauth_token]
