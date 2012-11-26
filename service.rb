@@ -33,13 +33,19 @@ end
 
 get '/auth/twitter/callback' do
   # TODO handle denied authorization
+  # TODO handle duplicate authorization
   access_token = session[:request_token].get_access_token
   screen_name = access_token.params[:screen_name]
   oauth_token = access_token.params[:oauth_token]
   oauth_token_secret = access_token.params[:oauth_token_secret]
-  user = User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
   session[:screen_name] = screen_name
-  redirect '/email'
+  user = User.find_by_screen_name(screen_name)
+  if user.nil?
+    user = User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+    redirect '/email'
+  else
+    redirect '/success'
+  end
 end
 
 get '/email' do

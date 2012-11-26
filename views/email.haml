@@ -3,5 +3,5 @@
   = @user.screen_name
 %p We're ready to start watching your followers for their kudos – but first we're going to need an email address to send your notifications to:
 %form.form-inline{:action => '/email', :method => :post}
-  %input{:name => 'email', :type => 'email', :placeholder => 'Email address'}
+  %input{:name => 'email', :type => 'email', :placeholder => 'Email address', :value => @user.email}
   %button.btn.btn-success Notify Me
