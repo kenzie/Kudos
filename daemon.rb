@@ -23,18 +23,8 @@ EM::run do
   client = EM::Twitter::Client.connect(options)
 
   client.each do |response|
-    response = MultiJson.load(response, :symbolize_keys => true)
     puts "RESPONSE: #{response}"
-    if response.has_key? :text
-      tweet = Twitter::Tweet.new(response)
-      puts "Filtering: #{tweet.text}"
-      if tweet.reply? && Kudos::Filter.new(tweet).match?
-        puts "Match found: #{tweet.text}"
-        Kudos::Notify.new(Kudos::Trace.new(tweet).origin).send!
-      else
-        puts "No match."
-      end
-    end
+    Kudos::Response.new(response).process!
   end
 
   client.on_error do |message|

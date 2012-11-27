@@ -4,6 +4,7 @@ module Kudos
   require 'twitter'
   require 'yaml'
 
+  require_relative 'kudos/response'
   require_relative 'kudos/filter'
   require_relative 'kudos/trace'
   require_relative 'kudos/notify'
