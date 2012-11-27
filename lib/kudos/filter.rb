@@ -8,7 +8,7 @@ module Kudos
     end
 
     def match?
-      !!(tweet.text =~ /congrats|congratulations|kudos/i)
+      !!(tweet.text =~ /congrats|congratulations|kudos|you|can|the/i)
     end
 
   end

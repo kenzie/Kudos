@@ -10,7 +10,7 @@ module Kudos
     end
 
     def send!
-      puts "#{message}: #{status_link}"
+      puts "SENDING NOTIFICATION: #{message}: #{status_link}"
     end
 
     def status_link
@@ -20,16 +20,6 @@ module Kudos
     def message
       "Kudos Match!"
     end
-
-    # def notify!
-    #   begin
-    #     ...
-    #   rescue Twitter::Error::Forbidden
-    #     # ignore forbidden tweets
-    #   rescue Twitter::Error::TooManyRequests
-    #     abort "Twitter API rate limit exceeded"
-    #   end
-    # end
 
   end
 end
