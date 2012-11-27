@@ -2,7 +2,7 @@
 
 Use Twitter's Streaming API to catch all 'congrats' messages for authorized Twitter users. Send notification of any matches with a link to the original tweet.
 
-Start the server and daemon with:
+Edit sample.env and copy to .env, then start the service and daemon with:
   foreman start
 
 Run the tests with:
