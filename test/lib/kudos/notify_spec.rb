@@ -15,4 +15,13 @@ describe Kudos::Notify do
     @notify.message.must_match /Kudos Match/
   end
 
+  it 'should know the user of the origin tweet' do
+    @notify.tweet.user.screen_name.must_equal 'kenziecampbell'
+    @notify.tweet.user.id.must_equal 2884181
+  end
+
+  it 'should know which screen name to send the message to'
+
+  it 'should be able to match a screen name to an email address'
+
 end
