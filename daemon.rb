@@ -29,6 +29,10 @@ daemon.on_limit do |skip_count|
   puts "TWITTER RATE LIMIT: skip #{skip_count}"
 end
 
+daemon.on_no_data_received do
+  puts "TWITTER ERROR: No data received"
+end
+
 daemon.on_enhance_your_calm do
   puts "TWITTER ERROR: Enhance your calm ***"
 end
