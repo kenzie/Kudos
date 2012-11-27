@@ -1,20 +1,26 @@
+# Kudos! Stream Processing
+
 require 'bundler/setup'
 require 'tweetstream'
 require_relative './lib/kudos'
 
-TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
+$stdout.sync = true
 
 TweetStream.configure do |config|
-  config.consumer_key       = TWITTER['consumer_key']
-  config.consumer_secret    = TWITTER['consumer_secret']
-  config.oauth_token        = TWITTER['oauth_token']
-  config.oauth_token_secret = TWITTER['oauth_token_secret']
+  config.consumer_key       = ENV['TWITTER_KEY']
+  config.consumer_secret    = ENV['TWITTER_SECRET']
+  config.oauth_token        = ENV['OAUTH_TOKEN']
+  config.oauth_token_secret = ENV['OAUTH_TOKEN_SECRET']
   config.auth_method        = :oauth
 end
 
+# TODO a user stream will allow us to dynamically add and remove users, but for now we're fixed on a single user.
 client = TweetStream::Daemon.new('kudos').on_error { |message| puts "TWITTER ERROR: #{message}" }
 
-client.userstream do |status|
-  # TODO this is ugly:
-  Kudos::Notify.new(Kudos::Trace.new(status).origin) if Kudos::Filter.new(status).match?
+client.userstream(:with => 'followings') do |status|
+  puts "Filtering: #{status.text}"
+  if Kudos::Filter.new(status).match?
+    puts "Match found: #{status.text}"
+    Kudos::Notify.new(Kudos::Trace.new(status).origin)
+  end
 end

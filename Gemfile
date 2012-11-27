@@ -13,4 +13,5 @@ gem 'rake'
 
 group :development, :test do
   gem 'sinatra-reloader'
+  gem 'foreman'
 end

@@ -1,6 +1,7 @@
 .DS_Store
 .bundle
-config/twitter.yml
 vendor/bundle
 *.swp
 tmp/*
+.env
+*.pid

@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "minitest/autorun"
 require "Ohm"
-require_relative "../lib/user"
+require_relative "../../lib/user"
 
 Ohm.connect(:url => 'redis://127.0.0.1:6379/9')
 

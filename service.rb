@@ -1,21 +1,15 @@
-# Kudos!
+# Kudos! Website
 
 configure do
   require './lib/user'
   set :haml, { :format => :html5 }
   use Rack::Session::Cookie, :expire_after => 31536000, :secret => 'Kudo Monger'
-end
-
-configure(:production) do |c|
-  TWITTER = { 'consumer_key' => ENV['TWITTER_KEY'], 'consumer_secret' => ENV['TWITTER_SECRET'] }
-  Ohm.connect(:url => ENV["REDISTOGO_URL"])
+  Ohm.connect(:url => ENV["REDISTOGO_URL"] || ENV["REDIS_URL"])
 end
 
 configure(:development) do |c|
-  TWITTER = YAML.load_file(File.expand_path("../config/twitter.yml", __FILE__)) unless defined? TWITTER
   require 'sinatra/reloader'
   also_reload './lib/*.rb'
-  Ohm.connect(:url => 'redis://127.0.0.1:6379/0')
 end
 
 
@@ -64,7 +58,7 @@ end
 
 
 def client
-  OAuth::Consumer.new( TWITTER['consumer_key'], TWITTER['consumer_secret'], :site => 'https://api.twitter.com' )
+  OAuth::Consumer.new( ENV['TWITTER_KEY'], ENV['TWITTER_SECRET'], :site => 'https://api.twitter.com' )
 end
 
 def redirect_uri

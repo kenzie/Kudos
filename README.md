@@ -2,6 +2,12 @@
 
 Use Twitter's Streaming API to catch all 'congrats' messages for authorized Twitter users. Send notification of any matches with a link to the original tweet.
 
+Start the server and daemon with:
+  foreman start
+
+Run the tests with:
+  foreman run bundle exec ruby test/...
+
 ## Sinatra
 
 A simple Sinatra app has been setup to handle Twitter oAuth to start tracking users and capturing their email addresses for notification.
@@ -24,6 +30,6 @@ Origins will be notified on as an email to the signed up user.
 
 ## Reference Docs
 
-+ [Public Stream Docs](https://dev.twitter.com/docs/streaming-apis/streams/public)
++ [User Stream Docs](https://dev.twitter.com/docs/streaming-apis/streams/user)
 + [TweetStream Gem](https://github.com/intridea/tweetstream)
 + [Twitter Gem](https://github.com/sferik/twitter)
