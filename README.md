@@ -1,16 +1,16 @@
 # Kudos!
 
-Use Twitter's Streaming API to catch all 'congrats' messages for authorized Twitter users. Send notification of any matches with a link to the original tweet.
+Use Twitter's Streaming API to catch all 'congrats' messages sent in reply to one of your follower's tweets. Send email notification about that original tweet.
 
 Edit sample.env and copy to .env, then start the service and daemon with:
-  foreman start
+    foreman start
 
 Run the tests with:
-  foreman run bundle exec ruby test/...
+    foreman run bundle exec ruby test/...
 
 ## Sinatra
 
-A simple Sinatra app has been setup to handle Twitter oAuth to start tracking users and capturing their email addresses for notification.
+A Sinatra web service handles Twitter oAuth to persist each signed up user's screen name, email, and oauth credentials.
 
 ## User Stream
 
@@ -30,7 +30,7 @@ Matches are traced to their originating tweet with the Trace class.
 
 ## Notification
 
-Origins will be notified on as an email to the signed up user.
+Notifications on originating Kudos tweets are sent by email to the signed up user.
 
 ## TODO
 
