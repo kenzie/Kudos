@@ -15,9 +15,25 @@ TweetStream.configure do |config|
 end
 
 # TODO a site stream will allow us to dynamically add and remove users, but for now we're fixed on a single user stream.
-client = TweetStream::Daemon.new('kudos').on_error { |message| puts "TWITTER ERROR: #{message}" }
+daemon = TweetStream::Daemon.new('kudos')
 
-client.userstream(:with => 'followings', :replies => 'all') do |status|
+daemon.on_error do |message|
+  puts "TWITTER ERROR: #{message}"
+end
+
+daemon.on_reconnect do |timeout, retries|
+  puts "TWITTER RECONNECTING: timeout #{timeout}, retries #{retries}"
+end
+
+daemon.on_limit do |skip_count|
+  puts "TWITTER RATE LIMIT: skip #{skip_count}"
+end
+
+daemon.on_enhance_your_calm do
+  puts "TWITTER ERROR: Enhance your calm ***"
+end
+
+daemon.userstream(:replies => 'all', :with => 'followings') do |status|
   puts "Filtering: #{status.text}"
   if Kudos::Filter.new(status).match?
     puts "Match found: #{status.text}"
