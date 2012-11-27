@@ -17,7 +17,7 @@ end
 # TODO a user stream will allow us to dynamically add and remove users, but for now we're fixed on a single user.
 client = TweetStream::Daemon.new('kudos').on_error { |message| puts "TWITTER ERROR: #{message}" }
 
-client.userstream(:with => 'followings') do |status|
+client.userstream(:with => 'followings', :replies => 'all') do |status|
   puts "Filtering: #{status.text}"
   if Kudos::Filter.new(status).match?
     puts "Match found: #{status.text}"
