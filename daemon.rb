@@ -14,7 +14,7 @@ TweetStream.configure do |config|
   config.auth_method        = :oauth
 end
 
-# TODO a user stream will allow us to dynamically add and remove users, but for now we're fixed on a single user.
+# TODO a site stream will allow us to dynamically add and remove users, but for now we're fixed on a single user stream.
 client = TweetStream::Daemon.new('kudos').on_error { |message| puts "TWITTER ERROR: #{message}" }
 
 client.userstream(:with => 'followings', :replies => 'all') do |status|
