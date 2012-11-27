@@ -22,6 +22,8 @@ describe Kudos::Notify do
 
   it 'should know which screen name to send the message to'
 
-  it 'should be able to match a screen name to an email address'
+  it "should be able to match a screen name to a User's email address"
+
+  it 'should only send one notification per origin tweet'
 
 end
