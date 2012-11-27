@@ -3,9 +3,11 @@
 Use Twitter's Streaming API to catch all 'congrats' messages sent in reply to one of your follower's tweets. Send email notification about that original tweet.
 
 Edit sample.env and copy to .env, then start the service and daemon with:
+
     foreman start
 
 Run the tests with:
+
     foreman run bundle exec ruby test/...
 
 ## Sinatra
