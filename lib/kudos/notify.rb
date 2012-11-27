@@ -10,7 +10,7 @@ module Kudos
     end
 
     def send!
-      puts "SENDING NOTIFICATION: #{message}: #{status_link}"
+      puts "NOTIFICATION: #{message}: #{status_link}"
     end
 
     def status_link
