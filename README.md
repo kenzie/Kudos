@@ -34,6 +34,7 @@ Origins will be notified on as an email to the signed up user.
 
 ## TODO
 
+0. Resolve false positives when a follower sends congrats to someone else.
 1. Build notification email delivery.
 2. Try out daemon in production (Heroku worker)
 3. Daemon, Service, and User can probably be pulled into the Kudos module.
