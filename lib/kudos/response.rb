@@ -18,7 +18,7 @@ module Kudos
     def process!
       return false unless tweet? && reply?
       tweet = Twitter::Tweet.new(response)
-      puts "Filtering..."
+      puts "Filtering... #{tweet.text}"
       if Kudos::Filter.new(tweet).match?
         puts "Match found!"
         Kudos::Notify.new(Kudos::Trace.new(tweet).origin).send!
