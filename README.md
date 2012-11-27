@@ -36,13 +36,12 @@ Notifications on originating Kudos tweets are sent by email to the signed up use
 
 ## TODO
 
-0. Resolve false positives when a follower sends congrats to someone else.
-1. Build notification email delivery.
-2. Try out daemon in production (Heroku worker)
-3. Daemon, Service, and User can probably be pulled into the Kudos module.
-4. Integration tests for the Sinatra service.
-5. Match a Kudos tweet to the user that needs to be notified. We'll need to persist and maintain (REST API) a list of each signed up users' followers so we can do a simple lookup.
-6. Get access to the Site Stream and build functionality for adding/removing users from that stream.
+- Resolve false positives when a follower sends congrats to someone else.
+- Build notification email delivery.
+- Daemon, Service, and User can probably be pulled into the Kudos module.
+- Integration tests for the Sinatra service.
+- Match a Kudos tweet to the user that needs to be notified. We'll need to persist and maintain (REST API) a list of each signed up users' followers so we can do a simple lookup.
+- Get access to the Site Stream and build functionality for adding/removing users from that stream.
 
 ## Reference Docs
 
