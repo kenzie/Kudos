@@ -23,6 +23,7 @@ EM::run do
   client = EM::Twitter::Client.connect(options)
 
   client.each do |response|
+    puts "RESPONSE: #{response}"
     Kudos::Response.new(response).process!
   end
 
