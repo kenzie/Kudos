@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 require 'em-twitter'
-require_relative './lib/kudos'
+require_relative './kudos'
 
 $stdout.sync = true
 

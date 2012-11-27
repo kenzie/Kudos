@@ -1,7 +1,7 @@
 # Kudos! Website
 
 configure do
-  require './lib/user'
+  require_relative './user'
   set :haml, { :format => :html5 }
   use Rack::Session::Cookie, :expire_after => 31536000, :secret => 'Kudo Monger'
   Ohm.connect(:url => ENV["REDISTOGO_URL"] || ENV["REDIS_URL"])
@@ -9,7 +9,7 @@ end
 
 configure(:development) do |c|
   require 'sinatra/reloader'
-  also_reload './lib/*.rb'
+  also_reload './user.rb'
 end
 
 
