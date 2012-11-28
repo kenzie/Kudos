@@ -1,4 +1,4 @@
-require_relative "../../minitest_helper"
+require_relative "../../spec_helper"
 
 describe Kudos::Response do
 

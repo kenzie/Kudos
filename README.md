@@ -8,7 +8,7 @@ Edit sample.env and copy to .env, then start the service and daemon with:
 
 Run the tests with:
 
-    foreman run bundle exec ruby test/...
+    foreman run bundle exec rake test
 
 ## Sinatra
 
