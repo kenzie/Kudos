@@ -27,4 +27,10 @@ describe User do
     User.find_by_screen_name('kenziecampbell').must_equal @user
   end
 
+  it "#update_oauth!" do
+    @user.update_oauth!('123', '456')
+    User.find_by_screen_name('kenziecampbell').oauth_token.must_equal '123'
+    User.find_by_screen_name('kenziecampbell').oauth_token_secret.must_equal '456'
+  end
+
 end

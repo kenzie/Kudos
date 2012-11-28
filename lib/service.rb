@@ -29,7 +29,8 @@ get '/auth/twitter/callback' do
   redirect '/' if params[:denied]
   screen_name, oauth_token, oauth_token_secret = set_oauth_tokens
   session[:screen_name] = screen_name
-  user = User.find_by_screen_name(screen_name) || User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
+  user = User.find_by_screen_name(screen_name) || User.create(:screen_name => screen_name)
+  user.update_oauth!(oauth_token, oauth_token_secret)
   redirect '/email'
 end
 

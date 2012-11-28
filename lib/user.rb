@@ -12,4 +12,11 @@ class User < Ohm::Model
     find(:screen_name => screen_name).first
   end
 
+  def update_oauth!(token, secret)
+    self.oauth_token = token
+    self.oauth_token_secret = secret
+    self.save
+    self
+  end
+
 end
