@@ -27,13 +27,9 @@ end
 
 get '/auth/twitter/callback' do
   redirect '/' if params[:denied]
-  access_token = session[:request_token].get_access_token
-  screen_name = access_token.params[:screen_name]
-  oauth_token = access_token.params[:oauth_token]
-  oauth_token_secret = access_token.params[:oauth_token_secret]
+  screen_name, oauth_token, oauth_token_secret = set_oauth_tokens
   session[:screen_name] = screen_name
-  user = User.find_by_screen_name(screen_name)
-  user = User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret) if user.nil?
+  user = User.find_by_screen_name(screen_name) || User.create(:screen_name => screen_name, :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret)
   redirect '/email'
 end
 
@@ -66,4 +62,12 @@ def redirect_uri
   uri.path = '/auth/twitter/callback'
   uri.query = nil
   uri.to_s
+end
+
+def set_oauth_tokens
+  access_token = session[:request_token].get_access_token
+  screen_name = access_token.params[:screen_name]
+  oauth_token = access_token.params[:oauth_token]
+  oauth_token_secret = access_token.params[:oauth_token_secret]
+  [screen_name, oauth_token, oauth_token_secret]
 end
