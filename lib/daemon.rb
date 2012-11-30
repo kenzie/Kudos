@@ -23,7 +23,10 @@ EM::run do
   client = EM::Twitter::Client.connect(options)
 
   client.each do |response|
-    Kudos::Response.new(response).process!
+    tweet = Kudos::Response.new(response).tweet
+    match = Kudos::Filter.new(tweet).match?
+    # puts "RESPONSE: [#{tweet.user.screen_name}] #{tweet.text}" if match
+    Kudos::Notify.new(Kudos::Trace.new(tweet).origin).send! if match
   end
 
   client.on_error do |message|

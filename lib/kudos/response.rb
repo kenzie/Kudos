@@ -15,12 +15,8 @@ module Kudos
       !response[:in_reply_to_status_id].nil?
     end
 
-    def process!
-      return false unless tweet? && reply?
-      tweet = Twitter::Tweet.new(response)
-      if Kudos::Filter.new(tweet).match? # match found
-        Kudos::Notify.new(Kudos::Trace.new(tweet).origin).send!
-      end
+    def tweet
+      Twitter::Tweet.new(response) if tweet?
     end
 
   end

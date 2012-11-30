@@ -7,6 +7,10 @@ describe Kudos::Filter do
     @tweet2 = Twitter::Tweet.new(:id => 266272346032205824, :in_reply_to_screen_name => 'kenziecampbell', :in_reply_to_status_id => 266265329125179392, :text => 'Hey, how is it going?')
   end
 
+  it "#match? returns false for broken tweet" do
+    Filter.new(false).match?.must_equal false
+  end
+
   it "#match? returns true for matching kudos tweets" do
     Filter.new(@tweet1).match?.must_equal true
   end
